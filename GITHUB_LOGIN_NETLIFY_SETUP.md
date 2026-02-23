@@ -8,4 +8,4 @@
 5. In your GitHub repository secrets, add:
    - `NETLIFY_AUTH_TOKEN`
    - `NETLIFY_SITE_ID`
-6. Connect the repository to Netlify (or create a site in Netlify), then pushes to the repository will trigger `.github/workflows/netlify-deploy.yml` and publish updates automatically.
+6. Connect the repository to Netlify (or create a site in Netlify), then pushes to `main` will trigger `.github/workflows/netlify-deploy.yml` and publish updates automatically.
