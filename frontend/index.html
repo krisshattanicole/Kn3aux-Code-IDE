@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KN3AUX-CODE Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap');
+        
+        :root {
+            --bg: #050a12;
+            --surface: rgba(255,255,255,0.04);
+            --border: rgba(255,255,255,0.08);
+            --text: #e8f4ff;
+            --accent: #63d2ff;
+            --success: #34d399;
+            --warning: #fbbf24;
+            --danger: #f87171;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Syne', sans-serif;
+        }
+        
+        .glass {
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .pulse { animation: pulse 2s infinite; }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-slide-up { animation: slideUp 0.4s ease both; }
+        
+        .plugin-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(99,210,255,0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="glass sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center">
+                    <i data-lucide="git-branch" class="w-5 h-5 text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold">KN3AUX<span class="text-cyan-400">.</span>CODE</h1>
+                    <p class="text-xs text-gray-400">v5.0 - Connected</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-green-400 flex items-center gap-1">
+                    <span class="w-2 h-2 bg-green-400 rounded-full pulse"></span>
+                    Online
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-6">
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+            <div class="glass rounded-xl p-4 flex items-center gap-3 animate-slide-up">
+                <div class="text-cyan-400"><i data-lucide="battery" class="w-5 h-5"></i></div>
+                <div>
+                    <p class="text-xs text-gray-400">Battery</p>
+                    <p class="text-lg font-bold font-mono" id="battery">87%</p>
+                </div>
+            </div>
+            <div class="glass rounded-xl p-4 flex items-center gap-3 animate-slide-up" style="animation-delay: 0.1s">
+                <div class="text-green-400"><i data-lucide="cpu" class="w-5 h-5"></i></div>
+                <div>
+                    <p class="text-xs text-gray-400">CPU</p>
+                    <p class="text-lg font-bold font-mono" id="cpu">34%</p>
+                </div>
+            </div>
+            <div class="glass rounded-xl p-4 flex items-center gap-3 animate-slide-up" style="animation-delay: 0.2s">
+                <div class="text-purple-400"><i data-lucide="hard-drive" class="w-5 h-5"></i></div>
+                <div>
+                    <p class="text-xs text-gray-400">Memory</p>
+                    <p class="text-lg font-bold font-mono" id="memory">61%</p>
+                </div>
+            </div>
+            <div class="glass rounded-xl p-4 flex items-center gap-3 animate-slide-up" style="animation-delay: 0.3s">
+                <div class="text-blue-400"><i data-lucide="wifi" class="w-5 h-5"></i></div>
+                <div>
+                    <p class="text-xs text-gray-400">Network</p>
+                    <p class="text-lg font-bold font-mono" id="network">5G</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="glass rounded-xl p-4 mb-6">
+            <h2 class="text-sm font-bold mb-3 flex items-center gap-2">
+                <i data-lucide="zap" class="w-4 h-4"></i>
+                Quick Actions
+            </h2>
+            <div class="grid grid-cols-3 gap-2">
+                <button onclick="runAction('frp')" class="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 text-white text-xs font-semibold hover:opacity-90 transition">
+                    <i data-lucide="shield" class="w-5 h-5 mx-auto mb-1"></i>
+                    FRP Remove
+                </button>
+                <button onclick="runAction('mtk')" class="p-3 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-500 text-white text-xs font-semibold hover:opacity-90 transition">
+                    <i data-lucide="smartphone" class="w-5 h-5 mx-auto mb-1"></i>
+                    MTK Tools
+                </button>
+                <button onclick="runAction('backup')" class="p-3 rounded-lg bg-gradient-to-br from-green-500 to-emerald-500 text-white text-xs font-semibold hover:opacity-90 transition">
+                    <i data-lucide="database" class="w-5 h-5 mx-auto mb-1"></i>
+                    Backup
+                </button>
+            </div>
+        </div>
+
+        <!-- Terminal -->
+        <div class="glass rounded-xl p-4 mb-6">
+            <h2 class="text-sm font-bold mb-3 flex items-center gap-2">
+                <i data-lucide="terminal" class="w-4 h-4"></i>
+                Terminal
+            </h2>
+            <div class="bg-[#040608] rounded-lg p-3 h-48 overflow-auto font-mono text-sm text-green-400" id="terminal-output">
+                <div>$ KN3AUX-CODE initialized...</div>
+                <div>$ Ready for commands</div>
+            </div>
+            <div class="mt-3 flex gap-2">
+                <input type="text" id="terminal-input" placeholder="Enter command..." 
+                    class="flex-1 bg-gray-800 rounded-lg px-3 py-2 text-sm font-mono outline-none border border-gray-700 focus:border-cyan-400">
+                <button onclick="runTerminalCommand()" class="px-4 py-2 bg-cyan-500 rounded-lg text-white hover:bg-cyan-600 transition">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Plugin Grid -->
+        <div>
+            <h2 class="text-sm font-bold mb-3 flex items-center gap-2">
+                <i data-lucide="grid-3x3" class="w-4 h-4"></i>
+                Modules
+                <span class="text-xs bg-gray-800 px-2 py-1 rounded">13</span>
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="plugin-grid"></div>
+        </div>
+    </main>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Plugin data - matches your Dashboard.jsx
+        const plugins = [
+            { name: 'Network Scanner', icon: 'globe', color: 'cyan', status: 'active' },
+            { name: 'Metasploit', icon: 'zap', color: 'red', status: 'active' },
+            { name: 'Reverse Eng.', icon: 'code', color: 'purple', status: 'active' },
+            { name: 'WiFi Audit', icon: 'wifi', color: 'green', status: 'idle' },
+            { name: 'Web Tester', icon: 'globe', color: 'yellow', status: 'idle' },
+            { name: 'Script Runner', icon: 'terminal', color: 'gray', status: 'active' },
+            { name: 'Root Assistant', icon: 'smartphone', color: 'indigo', status: 'idle' },
+            { name: 'Carrier Bypass', icon: 'lock', color: 'pink', status: 'idle' },
+            { name: 'FRP Removal', icon: 'shield', color: 'orange', status: 'idle' },
+            { name: 'APK Analyzer', icon: 'box', color: 'teal', status: 'active' },
+            { name: 'AI Agent', icon: 'radio', color: 'violet', status: 'active' },
+            { name: 'Backup', icon: 'database', color: 'emerald', status: 'idle' },
+            { name: 'MTK Tool', icon: 'wrench', color: 'rose', status: 'active' }
+        ];
+
+        // Render plugins
+        const grid = document.getElementById('plugin-grid');
+        plugins.forEach((p, i) => {
+            const card = document.createElement('div');
+            card.className = 'glass rounded-xl p-3 cursor-pointer plugin-card transition-all duration-300';
+            card.style.animation = `slideUp 0.4s ease ${i * 0.05}s both`;
+            card.onclick = () => openPlugin(p.name);
+            card.innerHTML = `
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-${p.color}-500 to-${p.color}-600 flex items-center justify-center mb-2">
+                    <i data-lucide="${p.icon}" class="w-5 h-5 text-white"></i>
+                </div>
+                <h3 class="font-bold text-xs mb-1">${p.name}</h3>
+                <div class="flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full ${p.status === 'active' ? 'bg-green-400' : 'bg-gray-500'}"></span>
+                    <span class="text-xs ${p.status === 'active' ? 'text-green-400' : 'text-gray-500'}">${p.status}</span>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        setTimeout(() => lucide.createIcons(), 100);
+
+        // WebSocket connection
+        const socket = io('http://localhost:5000');
+        
+        socket.on('connect', () => {
+            console.log('Connected to backend');
+            addToTerminal('✓ Connected to backend server');
+        });
+
+        socket.on('device-stats', (stats) => {
+            document.getElementById('battery').textContent = stats.battery + '%';
+            document.getElementById('cpu').textContent = stats.cpu + '%';
+            document.getElementById('memory').textContent = stats.memory + '%';
+        });
+
+        // Terminal functions
+        function addToTerminal(text) {
+            const output = document.getElementById('terminal-output');
+            output.innerHTML += `<div>$ ${text}</div>`;
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function runTerminalCommand() {
+            const input = document.getElementById('terminal-input');
+            const cmd = input.value.trim();
+            
+            if (cmd) {
+                addToTerminal(cmd);
+                socket.emit('run-command', { command: cmd });
+                input.value = '';
+            }
+        }
+
+        socket.on('command-result', (data) => {
+            if (data.success) {
+                addToTerminal(data.output || 'Command executed');
+            } else {
+                addToTerminal('Error: ' + data.error);
+            }
+        });
+
+        // Quick actions
+        function runAction(action) {
+            addToTerminal(`Running ${action}...`);
+            
+            fetch(`/api/${action}/run`, { method: 'POST' })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        addToTerminal(`✓ ${action} completed`);
+                        alert(`${action} completed successfully!`);
+                    } else {
+                        addToTerminal(`✗ ${action} failed: ${data.error}`);
+                        alert(`${action} failed: ${data.error}`);
+                    }
+                })
+                .catch(err => {
+                    addToTerminal(`✗ Error: ${err.message}`);
+                    alert(`Error: ${err.message}`);
+                });
+        }
+
+        function openPlugin(name) {
+            addToTerminal(`Opening ${name}...`);
+            alert(`${name} module - Coming soon!`);
+        }
+
+        // Live stats simulation (fallback)
+        setInterval(() => {
+            if (!socket.connected) {
+                document.getElementById('battery').textContent = Math.floor(Math.random() * 10 + 80) + '%';
+                document.getElementById('cpu').textContent = Math.floor(Math.random() * 30 + 20) + '%';
+                document.getElementById('memory').textContent = Math.floor(Math.random() * 20 + 50) + '%';
+            }
+        }, 2000);
+    </script>
+</body>
+</html>

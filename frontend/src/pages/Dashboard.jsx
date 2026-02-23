@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   Activity, Battery, Cpu, HardDrive, Wifi, Globe,
   Lock, Terminal, Zap, Smartphone, Search, X,
   Moon, Sun, ChevronRight, Radio, Shield, Code,
   Database, RefreshCw, AlertCircle, CheckCircle,
-  Layers, Box, GitBranch, Antenna, Usb, Tool,
-  FileText, Settings, Power, Download, Upload
+  Layers, Box, GitBranch, Antenna
 } from 'lucide-react';
 
 // ─── Theme System ──────────────────────────────────────────────────────────────
@@ -45,33 +43,20 @@ const themes = {
   }
 };
 
-// ─── Complete Plugin Config (All KN3AUX-CODE Features) ─────────────────────────
+// ─── Plugin Config ─────────────────────────────────────────────────────────────
 const plugins = [
-  // Security & Network
-  { name: 'Network Scanner', icon: Globe, path: '/network', gradient: ['#0ea5e9', '#06b6d4'], status: 'active', category: 'security' },
-  { name: 'Metasploit', icon: Zap, path: '/metasploit', gradient: ['#ef4444', '#f97316'], status: 'active', category: 'security' },
-  { name: 'WiFi Audit', icon: Wifi, path: '/wifi', gradient: ['#10b981', '#14b8a6'], status: 'idle', category: 'security' },
-  { name: 'Web Tester', icon: Globe, path: '/web', gradient: ['#f59e0b', '#eab308'], status: 'idle', category: 'security' },
-  
-  // Reverse Engineering
-  { name: 'Reverse Eng.', icon: Code, path: '/reverse', gradient: ['#8b5cf6', '#ec4899'], status: 'active', category: 'reverse' },
-  { name: 'APK Analyzer', icon: Box, path: '/apk', gradient: ['#14b8a6', '#0ea5e9'], status: 'active', category: 'reverse' },
-  { name: 'Carrier Bypass', icon: Lock, path: '/carrier', gradient: ['#ec4899', '#f43f5e'], status: 'idle', category: 'reverse' },
-  { name: 'FRP Removal', icon: Shield, path: '/frp', gradient: ['#f97316', '#ef4444'], status: 'idle', category: 'reverse' },
-  
-  // Device & Root
-  { name: 'Root Assistant', icon: Smartphone, path: '/root', gradient: ['#6366f1', '#8b5cf6'], status: 'idle', category: 'device' },
-  { name: 'Device Info', icon: Activity, path: '/device', gradient: ['#059669', '#10b981'], status: 'active', category: 'device' },
-  { name: 'MTK Tool', icon: Tool, path: '/mtk', gradient: ['#f43f5e', '#ec4899'], status: 'active', category: 'device' },
-  
-  // Development
-  { name: 'Script Runner', icon: Terminal, path: '/scripts', gradient: ['#6b7280', '#475569'], status: 'active', category: 'dev' },
-  { name: 'AI Agent', icon: Radio, path: '/ai', gradient: ['#a855f7', '#6366f1'], status: 'active', category: 'dev' },
-  { name: 'Backup', icon: Database, path: '/backup', gradient: ['#0ea5e9', '#3b82f6'], status: 'idle', category: 'dev' },
-  
-  // System
-  { name: 'Plugin Market', icon: Layers, path: '/plugins', gradient: ['#8b5cf6', '#a855f7'], status: 'active', category: 'system' },
-  { name: 'Settings', icon: Settings, path: '/settings', gradient: ['#64748b', '#475569'], status: 'idle', category: 'system' },
+  { name: 'Network Scanner', icon: Globe, path: '/network', gradient: ['#0ea5e9', '#06b6d4'], status: 'active' },
+  { name: 'Metasploit', icon: Zap, path: '/metasploit', gradient: ['#ef4444', '#f97316'], status: 'active' },
+  { name: 'Reverse Eng.', icon: Code, path: '/reverse', gradient: ['#8b5cf6', '#ec4899'], status: 'active' },
+  { name: 'WiFi Audit', icon: Wifi, path: '/wifi', gradient: ['#10b981', '#14b8a6'], status: 'idle' },
+  { name: 'Web Tester', icon: Globe, path: '/web', gradient: ['#f59e0b', '#eab308'], status: 'idle' },
+  { name: 'Script Runner', icon: Terminal, path: '/scripts', gradient: ['#6b7280', '#475569'], status: 'active' },
+  { name: 'Root Assistant', icon: Smartphone, path: '/root', gradient: ['#6366f1', '#8b5cf6'], status: 'idle' },
+  { name: 'Carrier Bypass', icon: Lock, path: '/carrier', gradient: ['#ec4899', '#f43f5e'], status: 'idle' },
+  { name: 'FRP Removal', icon: Shield, path: '/frp', gradient: ['#f97316', '#ef4444'], status: 'idle' },
+  { name: 'APK Analyzer', icon: Box, path: '/apk', gradient: ['#14b8a6', '#0ea5e9'], status: 'active' },
+  { name: 'AI Agent', icon: Radio, path: '/ai', gradient: ['#a855f7', '#6366f1'], status: 'active' },
+  { name: 'Backup', icon: Database, path: '/backup', gradient: ['#059669', '#10b981'], status: 'idle' },
 ];
 
 const navItems = [
@@ -79,77 +64,42 @@ const navItems = [
   ['Reverse Eng.', '/reverse'], ['WiFi', '/wifi'], ['Web Tester', '/web'],
   ['Scripts', '/scripts'], ['Root', '/root'], ['Carrier', '/carrier'],
   ['FRP', '/frp'], ['APK', '/apk'], ['AI Agent', '/ai'],
-  ['Backup', '/backup'], ['MTK Tool', '/mtk'], ['Device', '/device'],
-  ['Plugins', '/plugins'], ['Settings', '/settings'],
+  ['Backup', '/backup'], ['Settings', '/settings'],
 ];
 
-// ─── Live Stats Hook with Real Device Data ─────────────────────────────────────
+// ─── Live Stats Hook ───────────────────────────────────────────────────────────
 function useStats() {
   const [stats, setStats] = useState({
     battery: 87, cpu: 34, memory: 61, network: 'T-Mobile 5G',
-    ip: '192.168.1.42', uptime: '14h 32m', deviceName: 'Android Device',
-    signal: 4, storage: 73, root: true, adb: true,
+    ip: '192.168.1.42', uptime: '14h 32m', deviceName: 'Pixel 9 Pro',
+    signal: 4, storage: 73,
   });
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    // Try to connect to real WebSocket backend
+    // Connect to real WebSocket when available
     let ws;
-    let pollInterval;
-    
-    const connectWS = () => {
-      try {
-        ws = new WebSocket('ws://localhost:5000/socket.io/?EIO=4&transport=websocket');
-        ws.onopen = () => {
-          setConnected(true);
-          console.log('WebSocket connected');
-        };
-        ws.onmessage = (e) => {
-          try {
-            const d = JSON.parse(e.data);
-            if (d.battery !== undefined) setStats(prev => ({ ...prev, ...d }));
-          } catch {}
-        };
-        ws.onclose = () => setConnected(false);
-        ws.onerror = () => setConnected(false);
-      } catch (err) {
-        // WebSocket not available, use polling
-        pollInterval = setInterval(async () => {
-          try {
-            // Try to fetch from backend API
-            const res = await fetch('/api/device/status').catch(() => null);
-            if (res && res.ok) {
-              const data = await res.json();
-              setStats(prev => ({ ...prev, ...data }));
-              setConnected(true);
-            } else {
-              // Simulate realistic data
-              simulateStats();
-            }
-          } catch {
-            simulateStats();
-          }
-        }, 2000);
-      }
-    };
+    try {
+      ws = new WebSocket('ws://localhost:5000/socket.io/?EIO=4&transport=websocket');
+      ws.onopen = () => setConnected(true);
+      ws.onmessage = (e) => {
+        try { const d = JSON.parse(e.data); if (d.battery !== undefined) setStats(d); } catch {}
+      };
+      ws.onclose = () => setConnected(false);
+    } catch {}
 
-    const simulateStats = () => {
+    // Simulate realistic live data
+    setConnected(true);
+    const interval = setInterval(() => {
       setStats(prev => ({
         ...prev,
         cpu: Math.max(5, Math.min(95, prev.cpu + (Math.random() - 0.5) * 10)),
         memory: Math.max(20, Math.min(90, prev.memory + (Math.random() - 0.5) * 3)),
         battery: Math.max(10, Math.min(100, prev.battery - 0.04)),
-        network: prev.network,
       }));
-      setConnected(true);
-    };
+    }, 2000);
 
-    connectWS();
-
-    return () => {
-      if (ws) ws.close();
-      if (pollInterval) clearInterval(pollInterval);
-    };
+    return () => { clearInterval(interval); if (ws) ws.close(); };
   }, []);
 
   return { stats, connected };
@@ -228,14 +178,14 @@ function StatCard({ icon: Icon, label, value, raw, color, t }) {
   );
 }
 
-function PluginCard({ plugin, t, index, onNavigate }) {
+function PluginCard({ plugin, t, index }) {
   const [hovered, setHovered] = useState(false);
   const { icon: Icon, name, gradient, status } = plugin;
   const isActive = status === 'active';
 
   return (
     <div
-      onClick={() => onNavigate(plugin.path)}
+      onClick={() => console.log(`Navigate to ${plugin.path}`)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -344,14 +294,12 @@ function SignalBars({ level, color }) {
   );
 }
 
-function CommandPalette({ open, onClose, t, onNavigate }) {
+function CommandPalette({ open, onClose, t }) {
   const [query, setQuery] = useState('');
   const filtered = navItems.filter(([name]) =>
     name.toLowerCase().includes(query.toLowerCase())
   );
-  
   useEffect(() => { if (!open) setQuery(''); }, [open]);
-  
   if (!open) return null;
 
   return (
@@ -410,7 +358,7 @@ function CommandPalette({ open, onClose, t, onNavigate }) {
                 }}
                 onMouseEnter={e => e.currentTarget.style.background = t.surfaceHover}
                 onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
-                onClick={() => { onNavigate(path); onClose(); }}
+                onClick={() => { console.log('Navigate:', path); onClose(); }}
               >
                 <span style={{ fontWeight: 500 }}>{name}</span>
                 <ChevronRight size={14} color={t.textMuted} />
@@ -423,17 +371,14 @@ function CommandPalette({ open, onClose, t, onNavigate }) {
   );
 }
 
-// ─── Main Dashboard Component ──────────────────────────────────────────────────
+// ─── Main ──────────────────────────────────────────────────────────────────────
 export default function Dashboard() {
-  const navigate = useNavigate();
   const [isDark, setIsDark] = useState(true);
   const [cmdOpen, setCmdOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('all');
-  const [categoryFilter, setCategoryFilter] = useState('all');
   const t = themes[isDark ? 'dark' : 'light'];
   const { stats, connected } = useStats();
 
-  // Keyboard shortcuts
   useEffect(() => {
     const handler = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); setCmdOpen(o => !o); }
@@ -443,14 +388,8 @@ export default function Dashboard() {
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
-  // Filter plugins
-  const filteredPlugins = plugins.filter(p => {
-    const tabMatch = activeTab === 'all' || p.status === activeTab;
-    const catMatch = categoryFilter === 'all' || p.category === categoryFilter;
-    return tabMatch && catMatch;
-  });
-
-  const categories = ['all', 'security', 'reverse', 'device', 'dev', 'system'];
+  const filteredPlugins = activeTab === 'all' ? plugins
+    : plugins.filter(p => p.status === activeTab);
 
   const battColor = stats.battery > 60 ? t.success : stats.battery > 25 ? t.warning : t.danger;
   const cpuColor = stats.cpu < 50 ? t.success : stats.cpu < 75 ? t.warning : t.danger;
@@ -673,13 +612,6 @@ export default function Dashboard() {
                 }}>
                   {stats.deviceName} &nbsp;·&nbsp; {stats.ip} &nbsp;·&nbsp; ↑{stats.uptime}
                 </span>
-                {stats.root && (
-                  <>
-                    <span style={{ color: t.textMuted }}>·</span>
-                    <Shield size={12} color={t.success} />
-                    <span style={{ fontSize: 12.5, color: t.success }}>Rooted</span>
-                  </>
-                )}
               </div>
             </div>
 
@@ -718,7 +650,7 @@ export default function Dashboard() {
             <StatCard icon={Database} label="Storage" value={`${stats.storage}%`} raw={stats.storage} color={t.accentAlt} t={t} />
           </div>
 
-          {/* Category tabs */}
+          {/* Module header + tabs */}
           <div style={{
             display: 'flex', alignItems: 'center',
             justifyContent: 'space-between', marginBottom: 18,
@@ -736,7 +668,7 @@ export default function Dashboard() {
                 {filteredPlugins.length}
               </span>
             </h2>
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 6 }}>
               {['all', 'active', 'idle'].map(tab => (
                 <button key={tab} onClick={() => setActiveTab(tab)} style={{
                   padding: '5px 14px', borderRadius: 8,
@@ -752,23 +684,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Category filter */}
-          <div style={{
-            display: 'flex', gap: 6, marginBottom: 18, flexWrap: 'wrap',
-          }}>
-            {categories.map(cat => (
-              <button key={cat} onClick={() => setCategoryFilter(cat)} style={{
-                padding: '4px 10px', borderRadius: 6,
-                fontSize: 11, fontWeight: 600,
-                cursor: 'pointer', transition: 'all 0.15s',
-                fontFamily: 'inherit', textTransform: 'capitalize',
-                background: categoryFilter === cat ? t.surfaceHover : t.surface,
-                border: `1px solid ${categoryFilter === cat ? t.borderHover : t.border}`,
-                color: categoryFilter === cat ? t.text : t.textMuted,
-              }}>{cat}</button>
-            ))}
-          </div>
-
           {/* Plugin grid */}
           <div
             className="plugin-grid"
@@ -779,7 +694,7 @@ export default function Dashboard() {
             }}
           >
             {filteredPlugins.map((p, i) => (
-              <PluginCard key={p.name} plugin={p} t={t} index={i} onNavigate={(path) => navigate(path)} />
+              <PluginCard key={p.name} plugin={p} t={t} index={i} />
             ))}
           </div>
 
@@ -814,7 +729,7 @@ export default function Dashboard() {
         </main>
       </div>
 
-      <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} t={t} onNavigate={(path) => navigate(path)} />
+      <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} t={t} />
     </>
   );
 }
