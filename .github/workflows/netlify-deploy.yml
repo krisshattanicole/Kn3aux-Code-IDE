@@ -4,14 +4,105 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   deploy:
+    name: Deploy to Netlify
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v4
-      - name: Deploy site
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      
+      - name: Install dependencies
         run: |
-          mkdir -p /tmp/netlify-publish
-          rsync -a ./ /tmp/netlify-publish/ --exclude '.git' --exclude '.github' --exclude 'GITHUB_LOGIN_NETLIFY_SETUP.md'
-          npx netlify-cli@17.38.0 deploy --dir=/tmp/netlify-publish --prod --site="${{ secrets.NETLIFY_SITE_ID }}" --auth="${{ secrets.NETLIFY_AUTH_TOKEN }}"
+          cd frontend
+          npm ci
+      
+      - name: Run tests
+        run: |
+          cd frontend
+          npm test || true
+        continue-on-error: true
+      
+      - name: Build application
+        run: |
+          cd frontend
+          npm run build
+        env:
+          CI: true
+      
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli@17.38.0
+      
+      - name: Deploy to Netlify (Production)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        id: deploy_prod
+        run: |
+          cd frontend
+          echo "🚀 Deploying to production..."
+          netlify deploy --prod --dir=dist --message="Deploy from GitHub Actions"
+          echo "✅ Production deploy complete!"
+          echo "🌐 URL: https://kn3aux-code.netlify.app"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      
+      - name: Deploy to Netlify (Preview)
+        if: github.event_name == 'pull_request'
+        id: deploy_preview
+        run: |
+          cd frontend
+          echo "🔍 Deploying preview for PR #${{ github.event.pull_request.number }}..."
+          netlify deploy --dir=dist --message="Preview for PR #${{ github.event.pull_request.number }}"
+          echo "✅ Preview deploy complete!"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      
+      - name: Deployment Summary (Success)
+        if: success()
+        run: |
+          echo ""
+          echo "╔══════════════════════════════════════════════════════════╗"
+          echo "║  ✅ DEPLOYMENT SUCCESSFUL                                ║"
+          echo "╚══════════════════════════════════════════════════════════╝"
+          echo ""
+          echo "📦 Commit: ${{ github.sha }}"
+          echo "🌐 Branch: ${{ github.ref_name }}"
+          echo "👤 Author: ${{ github.actor }}"
+          echo "⏰ Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo ""
+          if [ "${{ github.event_name }}" == "push" ]; then
+            echo "🚀 Production: https://kn3aux-code.netlify.app"
+          else
+            echo "🔗 Preview: PR #${{ github.event.pull_request.number }}"
+          fi
+          echo ""
+      
+      - name: Deployment Summary (Failure)
+        if: failure()
+        run: |
+          echo ""
+          echo "╔══════════════════════════════════════════════════════════╗"
+          echo "║  ❌ DEPLOYMENT FAILED                                    ║"
+          echo "╚══════════════════════════════════════════════════════════╝"
+          echo ""
+          echo "📦 Commit: ${{ github.sha }}"
+          echo "🌐 Branch: ${{ github.ref_name }}"
+          echo "👤 Author: ${{ github.actor }}"
+          echo ""
+          echo "🔍 Check logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo ""

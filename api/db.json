@@ -8,7 +8,14 @@
       "gradient": ["#0ea5e9", "#06b6d4"],
       "status": "active",
       "description": "Scan and analyze network devices",
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "author": "Kn3aux Team",
+      "lastUpdated": "2026-02-23",
+      "usage": 1247,
+      "rating": 4.8,
+      "features": ["Port scanning", "Device discovery", "Service detection", "Vulnerability check"],
+      "requirements": ["root"],
+      "category": "Network"
     },
     {
       "id": 2,
@@ -18,7 +25,14 @@
       "gradient": ["#ef4444", "#f97316"],
       "status": "active",
       "description": "Penetration testing framework",
-      "version": "6.3.0"
+      "version": "6.3.0",
+      "author": "Rapid7",
+      "lastUpdated": "2026-02-20",
+      "usage": 3421,
+      "rating": 4.9,
+      "features": ["Exploit database", "Payload generator", "Post-exploitation", "Reporting"],
+      "requirements": ["root", "metasploit-framework"],
+      "category": "Security"
     },
     {
       "id": 3,
@@ -28,7 +42,14 @@
       "gradient": ["#8b5cf6", "#ec4899"],
       "status": "active",
       "description": "APK reverse engineering tools",
-      "version": "2.1.0"
+      "version": "2.1.0",
+      "author": "Kn3aux Team",
+      "lastUpdated": "2026-02-22",
+      "usage": 892,
+      "rating": 4.7,
+      "features": ["APK decompile", "Smali analysis", "Resource extraction", "Manifest viewer"],
+      "requirements": ["apktool", "jadx"],
+      "category": "Analysis"
     },
     {
       "id": 4,
@@ -38,7 +59,14 @@
       "gradient": ["#10b981", "#14b8a6"],
       "status": "idle",
       "description": "WiFi security auditing",
-      "version": "1.5.0"
+      "version": "1.5.0",
+      "author": "Kn3aux Team",
+      "lastUpdated": "2026-02-23",
+      "usage": 567,
+      "rating": 4.6,
+      "features": ["Network scan", "Security check", "WPS test", "Password audit"],
+      "requirements": ["root", "aircrack-ng"],
+      "category": "Network"
     },
     {
       "id": 5,
@@ -48,7 +76,14 @@
       "gradient": ["#f59e0b", "#eab308"],
       "status": "idle",
       "description": "Web vulnerability scanner",
-      "version": "3.0.0"
+      "version": "3.0.0",
+      "author": "Kn3aux Team",
+      "lastUpdated": "2026-02-18",
+      "usage": 1034,
+      "rating": 4.5,
+      "features": ["SQL injection", "XSS detection", "CSRF check", "Header analysis"],
+      "requirements": [],
+      "category": "Web"
     },
     {
       "id": 6,
@@ -58,7 +93,14 @@
       "gradient": ["#6b7280", "#475569"],
       "status": "active",
       "description": "Execute custom scripts",
-      "version": "1.2.0"
+      "version": "1.2.0",
+      "author": "Kn3aux Team",
+      "lastUpdated": "2026-02-21",
+      "usage": 2156,
+      "rating": 4.8,
+      "features": ["Bash scripts", "Python scripts", "Scheduled tasks", "Output logging"],
+      "requirements": [],
+      "category": "Automation"
     },
     {
       "id": 7,
@@ -68,7 +110,14 @@
       "gradient": ["#6366f1", "#8b5cf6"],
       "status": "idle",
       "description": "Root management tools",
-      "version": "2.0.0"
+      "version": "2.0.0",
+      "author": "Kn3aux Team",
+      "lastUpdated": "2026-02-19",
+      "usage": 1789,
+      "rating": 4.7,
+      "features": ["Root checker", "SU manager", "Permission control", "Magisk modules"],
+      "requirements": ["root"],
+      "category": "System"
     },
     {
       "id": 8,
@@ -78,7 +127,14 @@
       "gradient": ["#ec4899", "#f43f5e"],
       "status": "idle",
       "description": "Network carrier unlocking",
-      "version": "1.8.0"
+      "version": "1.8.0",
+      "author": "Kn3aux Team",
+      "lastUpdated": "2026-02-17",
+      "usage": 423,
+      "rating": 4.4,
+      "features": ["SIM unlock", "Network unlock", "IMEI repair", "Band selector"],
+      "requirements": ["root", "QCOM drivers"],
+      "category": "Network"
     },
     {
       "id": 9,
@@ -88,7 +144,14 @@
       "gradient": ["#f97316", "#ef4444"],
       "status": "idle",
       "description": "FRP bypass tools",
-      "version": "3.2.0"
+      "version": "3.2.0",
+      "author": "Kn3aux Team",
+      "lastUpdated": "2026-02-23",
+      "usage": 2891,
+      "rating": 4.9,
+      "features": ["Samsung FRP", "Xiaomi FRP", "Huawei FRP", "Generic bypass"],
+      "requirements": ["adb", "fastboot"],
+      "category": "Unlock"
     },
     {
       "id": 10,
@@ -98,7 +161,14 @@
       "gradient": ["#14b8a6", "#0ea5e9"],
       "status": "active",
       "description": "Analyze and modify APK files",
-      "version": "2.5.0"
+      "version": "2.5.0",
+      "author": "Kn3aux Team",
+      "lastUpdated": "2026-02-22",
+      "usage": 1567,
+      "rating": 4.8,
+      "features": ["APK info", "Permission analysis", "Signature check", "Reskin tools"],
+      "requirements": ["apktool", "apksigner"],
+      "category": "Analysis"
     },
     {
       "id": 11,
@@ -108,7 +178,14 @@
       "gradient": ["#a855f7", "#6366f1"],
       "status": "active",
       "description": "AI-powered assistance",
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "author": "Kn3aux Team",
+      "lastUpdated": "2026-02-23",
+      "usage": 934,
+      "rating": 4.9,
+      "features": ["Code suggestions", "Error analysis", "Documentation", "Chat assistant"],
+      "requirements": ["internet"],
+      "category": "AI"
     },
     {
       "id": 12,
@@ -118,7 +195,14 @@
       "gradient": ["#059669", "#10b981"],
       "status": "idle",
       "description": "Device backup and restore",
-      "version": "1.3.0"
+      "version": "1.3.0",
+      "author": "Kn3aux Team",
+      "lastUpdated": "2026-02-20",
+      "usage": 678,
+      "rating": 4.6,
+      "features": ["App backup", "Data backup", "SMS backup", "Cloud sync"],
+      "requirements": ["adb"],
+      "category": "Backup"
     },
     {
       "id": 13,
@@ -127,8 +211,15 @@
       "path": "/mtk",
       "gradient": ["#f43f5e", "#ec4899"],
       "status": "active",
-      "description": "MediaTek device tools",
-      "version": "2.2.0"
+      "description": "MediaTek device utilities",
+      "version": "2.2.0",
+      "author": "Kn3aux Team",
+      "lastUpdated": "2026-02-23",
+      "usage": 1123,
+      "rating": 4.8,
+      "features": ["Chipset detection", "Partition flash", "IMEI write", "Boot repair"],
+      "requirements": ["adb", "fastboot", "mct"],
+      "category": "MTK"
     }
   ],
   "devices": [
@@ -136,34 +227,174 @@
       "id": 1,
       "name": "Pixel 9 Pro",
       "model": "GP4BC",
+      "manufacturer": "Google",
       "android_version": "14",
       "sdk": "34",
+      "security_patch": "2026-02-01",
+      "build_id": "AP2A.240905.003",
       "status": "connected",
       "battery": 87,
       "signal": "5G",
+      "network_type": "LTE",
       "ip": "192.168.1.42",
-      "storage": { "total": 256, "used": 187, "free": 69 }
+      "mac": "AA:BB:CC:DD:EE:FF",
+      "storage": {
+        "total": 256,
+        "used": 187,
+        "free": 69,
+        "sd_card": null
+      },
+      "ram": {
+        "total": 12,
+        "used": 7.3,
+        "free": 4.7
+      },
+      "cpu": {
+        "cores": 8,
+        "frequency": "2.8 GHz",
+        "usage": 34
+      },
+      "temperature": 42,
+      "uptime": "14h 32m",
+      "last_seen": "2026-02-23T06:20:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Samsung A14",
+      "model": "SM-A145F",
+      "manufacturer": "Samsung",
+      "android_version": "13",
+      "sdk": "33",
+      "security_patch": "2026-01-05",
+      "build_id": "TP1A.220624.014",
+      "status": "disconnected",
+      "battery": 0,
+      "signal": null,
+      "network_type": null,
+      "ip": null,
+      "mac": null,
+      "storage": {
+        "total": 64,
+        "used": 48,
+        "free": 16,
+        "sd_card": 32
+      },
+      "ram": {
+        "total": 4,
+        "used": 0,
+        "free": 4
+      },
+      "cpu": {
+        "cores": 8,
+        "frequency": "2.0 GHz",
+        "usage": 0
+      },
+      "temperature": 0,
+      "uptime": "0h 0m",
+      "last_seen": "2026-02-22T18:45:00Z"
     }
   ],
-  "commands": [],
+  "commands": [
+    {
+      "id": 1,
+      "command": "adb devices",
+      "description": "List connected devices",
+      "category": "ADB",
+      "usage_count": 1523
+    },
+    {
+      "id": 2,
+      "command": "adb shell dumpsys battery",
+      "description": "Check battery status",
+      "category": "ADB",
+      "usage_count": 892
+    },
+    {
+      "id": 3,
+      "command": "adb shell pm list packages",
+      "description": "List installed packages",
+      "category": "Package",
+      "usage_count": 734
+    },
+    {
+      "id": 4,
+      "command": "fastboot devices",
+      "description": "List fastboot devices",
+      "category": "Fastboot",
+      "usage_count": 456
+    },
+    {
+      "id": 5,
+      "command": "adb shell getprop",
+      "description": "Get system properties",
+      "category": "System",
+      "usage_count": 1245
+    }
+  ],
   "logs": [
     {
       "id": 1,
       "timestamp": "2026-02-23T06:00:00Z",
       "type": "info",
-      "message": "KN3AUX-CODE initialized"
+      "source": "system",
+      "message": "KN3AUX-CODE initialized",
+      "details": {}
     },
     {
       "id": 2,
       "timestamp": "2026-02-23T06:00:01Z",
       "type": "success",
-      "message": "Backend server started"
+      "source": "backend",
+      "message": "Backend server started",
+      "details": {"port": 5000}
     },
     {
       "id": 3,
       "timestamp": "2026-02-23T06:00:02Z",
       "type": "info",
-      "message": "WebSocket connection established"
+      "source": "websocket",
+      "message": "WebSocket connection established",
+      "details": {"clients": 1}
+    },
+    {
+      "id": 4,
+      "timestamp": "2026-02-23T06:00:05Z",
+      "type": "info",
+      "source": "api",
+      "message": "JSON Server API started",
+      "details": {"port": 3000}
+    },
+    {
+      "id": 5,
+      "timestamp": "2026-02-23T06:01:00Z",
+      "type": "success",
+      "source": "device",
+      "message": "Device connected: Pixel 9 Pro",
+      "details": {"device_id": 1}
+    },
+    {
+      "id": 6,
+      "timestamp": "2026-02-23T06:05:23Z",
+      "type": "warning",
+      "source": "system",
+      "message": "High CPU usage detected",
+      "details": {"cpu": 92}
+    },
+    {
+      "id": 7,
+      "timestamp": "2026-02-23T06:10:45Z",
+      "type": "error",
+      "source": "command",
+      "message": "Command failed: adb shell rm -rf /system",
+      "details": {"error": "Permission denied"}
+    },
+    {
+      "id": 8,
+      "timestamp": "2026-02-23T06:15:00Z",
+      "type": "info",
+      "source": "plugin",
+      "message": "Plugin loaded: MTK Tool v2.2.0",
+      "details": {"plugin_id": 13}
     }
   ],
   "settings": {
@@ -171,6 +402,53 @@
     "language": "en",
     "autoBackup": true,
     "notifications": true,
-    "debugMode": false
+    "debugMode": false,
+    "websocket": {
+      "enabled": true,
+      "url": "ws://localhost:5000",
+      "reconnect": true,
+      "reconnectInterval": 5000
+    },
+    "api": {
+      "url": "http://localhost:3000",
+      "timeout": 30000
+    },
+    "backend": {
+      "url": "http://localhost:5000",
+      "timeout": 60000
+    },
+    "device": {
+      "autoRefresh": true,
+      "refreshInterval": 2000
+    },
+    "terminal": {
+      "fontSize": 14,
+      "fontFamily": "JetBrains Mono",
+      "theme": "dracula",
+      "scrollback": 10000
+    }
+  },
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@kn3aux.com",
+      "role": "administrator",
+      "permissions": ["all"],
+      "created_at": "2026-01-01T00:00:00Z",
+      "last_login": "2026-02-23T06:00:00Z"
+    }
+  ],
+  "stats": {
+    "total_plugins": 13,
+    "active_plugins": 6,
+    "total_commands": 5,
+    "commands_executed": 4850,
+    "total_devices": 2,
+    "connected_devices": 1,
+    "total_logs": 8,
+    "uptime": "14h 32m",
+    "version": "5.0.0",
+    "last_update": "2026-02-23"
   }
 }
