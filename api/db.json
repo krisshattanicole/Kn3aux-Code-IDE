@@ -1,0 +1,176 @@
+{
+  "plugins": [
+    {
+      "id": 1,
+      "name": "Network Scanner",
+      "icon": "globe",
+      "path": "/network",
+      "gradient": ["#0ea5e9", "#06b6d4"],
+      "status": "active",
+      "description": "Scan and analyze network devices",
+      "version": "1.0.0"
+    },
+    {
+      "id": 2,
+      "name": "Metasploit",
+      "icon": "zap",
+      "path": "/metasploit",
+      "gradient": ["#ef4444", "#f97316"],
+      "status": "active",
+      "description": "Penetration testing framework",
+      "version": "6.3.0"
+    },
+    {
+      "id": 3,
+      "name": "Reverse Engineering",
+      "icon": "code",
+      "path": "/reverse",
+      "gradient": ["#8b5cf6", "#ec4899"],
+      "status": "active",
+      "description": "APK reverse engineering tools",
+      "version": "2.1.0"
+    },
+    {
+      "id": 4,
+      "name": "WiFi Audit",
+      "icon": "wifi",
+      "path": "/wifi",
+      "gradient": ["#10b981", "#14b8a6"],
+      "status": "idle",
+      "description": "WiFi security auditing",
+      "version": "1.5.0"
+    },
+    {
+      "id": 5,
+      "name": "Web Tester",
+      "icon": "globe",
+      "path": "/web",
+      "gradient": ["#f59e0b", "#eab308"],
+      "status": "idle",
+      "description": "Web vulnerability scanner",
+      "version": "3.0.0"
+    },
+    {
+      "id": 6,
+      "name": "Script Runner",
+      "icon": "terminal",
+      "path": "/scripts",
+      "gradient": ["#6b7280", "#475569"],
+      "status": "active",
+      "description": "Execute custom scripts",
+      "version": "1.2.0"
+    },
+    {
+      "id": 7,
+      "name": "Root Assistant",
+      "icon": "smartphone",
+      "path": "/root",
+      "gradient": ["#6366f1", "#8b5cf6"],
+      "status": "idle",
+      "description": "Root management tools",
+      "version": "2.0.0"
+    },
+    {
+      "id": 8,
+      "name": "Carrier Bypass",
+      "icon": "lock",
+      "path": "/carrier",
+      "gradient": ["#ec4899", "#f43f5e"],
+      "status": "idle",
+      "description": "Network carrier unlocking",
+      "version": "1.8.0"
+    },
+    {
+      "id": 9,
+      "name": "FRP Removal",
+      "icon": "shield",
+      "path": "/frp",
+      "gradient": ["#f97316", "#ef4444"],
+      "status": "idle",
+      "description": "FRP bypass tools",
+      "version": "3.2.0"
+    },
+    {
+      "id": 10,
+      "name": "APK Analyzer",
+      "icon": "box",
+      "path": "/apk",
+      "gradient": ["#14b8a6", "#0ea5e9"],
+      "status": "active",
+      "description": "Analyze and modify APK files",
+      "version": "2.5.0"
+    },
+    {
+      "id": 11,
+      "name": "AI Agent",
+      "icon": "radio",
+      "path": "/ai",
+      "gradient": ["#a855f7", "#6366f1"],
+      "status": "active",
+      "description": "AI-powered assistance",
+      "version": "1.0.0"
+    },
+    {
+      "id": 12,
+      "name": "Backup Manager",
+      "icon": "database",
+      "path": "/backup",
+      "gradient": ["#059669", "#10b981"],
+      "status": "idle",
+      "description": "Device backup and restore",
+      "version": "1.3.0"
+    },
+    {
+      "id": 13,
+      "name": "MTK Tool",
+      "icon": "wrench",
+      "path": "/mtk",
+      "gradient": ["#f43f5e", "#ec4899"],
+      "status": "active",
+      "description": "MediaTek device tools",
+      "version": "2.2.0"
+    }
+  ],
+  "devices": [
+    {
+      "id": 1,
+      "name": "Pixel 9 Pro",
+      "model": "GP4BC",
+      "android_version": "14",
+      "sdk": "34",
+      "status": "connected",
+      "battery": 87,
+      "signal": "5G",
+      "ip": "192.168.1.42",
+      "storage": { "total": 256, "used": 187, "free": 69 }
+    }
+  ],
+  "commands": [],
+  "logs": [
+    {
+      "id": 1,
+      "timestamp": "2026-02-23T06:00:00Z",
+      "type": "info",
+      "message": "KN3AUX-CODE initialized"
+    },
+    {
+      "id": 2,
+      "timestamp": "2026-02-23T06:00:01Z",
+      "type": "success",
+      "message": "Backend server started"
+    },
+    {
+      "id": 3,
+      "timestamp": "2026-02-23T06:00:02Z",
+      "type": "info",
+      "message": "WebSocket connection established"
+    }
+  ],
+  "settings": {
+    "theme": "dark",
+    "language": "en",
+    "autoBackup": true,
+    "notifications": true,
+    "debugMode": false
+  }
+}
